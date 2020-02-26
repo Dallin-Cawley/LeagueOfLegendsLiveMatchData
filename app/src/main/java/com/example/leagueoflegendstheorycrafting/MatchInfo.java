@@ -136,43 +136,7 @@ public class MatchInfo extends AppCompatActivity {
 
         //This thread executes whenever the 'done' key is pressed in the
         //searchAnotherSummoner EditText box.
-        newRiotAPICall = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    //Set up HTTP connection
-                    Gson json_manip = new Gson();
-                    RiotAPIConnection temp = new RiotAPIConnection();
-
-                    //Get General Summoner Info
-                    Summoner new_summoner_info = new Summoner(json_manip.fromJson(temp.summonerInfoByName(
-                            searchAnotherSummoner.getText().toString()), Summoner.class));
-                    new_summoner_info.setSummonerV4ResponseCode(temp.getResponseCode());
-
-                    //Get Ranked Info
-                    new_summoner_info.addRankedInfo(json_manip, temp.currentRankBySummonerID(
-                            new_summoner_info.getSummonerID()));
-                    new_summoner_info.setLeagueV4ResponseCode(temp.getResponseCode());
-
-                    //Get Live Game info
-                    new_summoner_info.addLiveGame(json_manip, temp.liveGameBySummonerID(
-                            new_summoner_info.getSummonerID()));
-                    new_summoner_info.setSpectatorV4ResponseCode(temp.getResponseCode());
-
-                    System.out.println("Response Code 1: " + new_summoner_info.getSpectatorV4ResponseCode());
-                    if (new_summoner_info.getSpectatorV4ResponseCode() == HttpURLConnection.HTTP_OK) {
-                        System.out.println("Summoner  is in Live Game");
-                    }
-
-                    //Display the new Info
-                    displaySummonerInfo(new_summoner_info);
-                }
-                catch (IOException i) {
-                    System.out.print(i);
-                }
-            }
-        });
+        newRiotAPICall = new Thread(new RiotAPIRunnable(null, this, getApplicationContext(), searchAnotherSummoner, false));
 
         //Set up 'done' key event such that another summoner can be searched using the EditText
         //view 'searchAnotherSummoner'

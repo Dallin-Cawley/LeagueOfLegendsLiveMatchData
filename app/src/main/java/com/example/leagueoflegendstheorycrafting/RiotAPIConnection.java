@@ -14,17 +14,15 @@ public class RiotAPIConnection extends HTTPConnection{
     List<String> _url_parameters;
 
 
-    RiotAPIConnection() {
-        super("https://na1.api.riotgames.com", "");
-    }
-    RiotAPIConnection(AppCompatActivity reference_to) throws IOException {
+    RiotAPIConnection(AppCompatActivity activity) throws IOException {
 
         StringBuilder api_key = new StringBuilder();
         try {
-            Scanner read_file = new Scanner(new MatchInfo().getAssets().open("RiotAPIKey.txt"));
+            Scanner read_file = new Scanner(activity.getAssets().open("RiotAPIKey.txt"));
             while (read_file.hasNext()) {
                 api_key.append(read_file.nextLine());
             }
+            System.out.println("API Key: " + api_key.toString());
         }
         catch(IOException i) {
             System.out.println(i);

@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText nameInput;
@@ -50,44 +52,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Thread getRiotAPI = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //Set up HTTP connection
-                            RiotAPIConnection riot_api = new RiotAPIConnection();
-                            Gson json_manip = new Gson();
-
-                            //Get General Summoner Info
-                            String json_summoner_info_response = riot_api.summonerInfoByName(
-                                    nameInput.getText().toString());
-                            Summoner summoner_info = new Summoner(json_manip.fromJson(
-                                    json_summoner_info_response, Summoner.class));
-                            summoner_info.setSummonerV4ResponseCode(riot_api.getResponseCode());
-
-                            //Get Ranked info
-                            String json_summoner_rank_response = riot_api.currentRankBySummonerID(
-                                    summoner_info.getSummonerID());
-                            summoner_info.addRankedInfo(json_manip, json_summoner_rank_response);
-                            summoner_info.setLeagueV4ResponseCode(riot_api.getResponseCode());
-
-                            //Get Live Game Data
-                            String json_summoner_live_game_response = riot_api.liveGameBySummonerID(
-                                    summoner_info.getSummonerID());
-                            summoner_info.addLiveGame(json_manip, json_summoner_live_game_response);
-                            summoner_info.setSpectatorV4ResponseCode(riot_api.getResponseCode());
-
-                            //Start the new Activity (MatchInfo.java)
-                            Intent pass_summoner = new Intent(MainActivity.this,
-                                    MatchInfo.class );
-                            pass_summoner.putExtra("Summoner", summoner_info);
-                            startActivity(pass_summoner);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                Thread getRiotAPI = new Thread(new RiotAPIRunnable(MainActivity.this,
+                        null, getApplicationContext(), nameInput, true));
 
                 //Begin Riot API calls on new Thread
                 getRiotAPI.start();
