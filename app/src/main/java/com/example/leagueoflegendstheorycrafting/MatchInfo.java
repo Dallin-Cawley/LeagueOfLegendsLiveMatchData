@@ -1,12 +1,16 @@
 package com.example.leagueoflegendstheorycrafting;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +20,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -30,10 +36,7 @@ public class MatchInfo extends AppCompatActivity {
     ImageView summonerIcon;
 
     Intent receivedSummoner;
-
-    Thread newRiotAPICall;
-
-    Handler referenceToMainThread;
+    Context matchInfoContext;
 
     //Team 1 Summoner Name TextViews
     TextView team1TopLaneSummonerName;
@@ -89,6 +92,9 @@ public class MatchInfo extends AppCompatActivity {
     }
 
     public void InitializeActivity() {
+        matchInfoContext = getApplicationContext();
+        final MatchInfo matchInfo = this;
+
         //Initialize Searched Summoner Display Items
         displaySummonerName = findViewById(R.id.summoner_name_display);
         summonerIcon = findViewById(R.id.summoner_icon);
@@ -132,27 +138,37 @@ public class MatchInfo extends AppCompatActivity {
         team2SupportSummonerName = findViewById(R.id.team2_support_summoner_name);
         team2SupportSummonerRank = findViewById(R.id.team2_support_rank);
 
-        referenceToMainThread = new Handler(Looper.getMainLooper());
-
-        //This thread executes whenever the 'done' key is pressed in the
-        //searchAnotherSummoner EditText box.
-        newRiotAPICall = new Thread(new RiotAPIRunnable(null, this, getApplicationContext(), searchAnotherSummoner, false));
 
         //Set up 'done' key event such that another summoner can be searched using the EditText
         //view 'searchAnotherSummoner'
         searchAnotherSummoner.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                newRiotAPICall.start();
+                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO
+                || actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    new Thread(new RiotAPIRunnable(null, matchInfo,
+                            matchInfoContext, searchAnotherSummoner, false)).start();
+                    hideSoftKeyboard();
+                    return true;
+                }
                 return false;
             }
         });
 
         //Get the result from our Riot API request for summoner data from the previous activity
         Summoner summoner = (Summoner) receivedSummoner.getSerializableExtra("Summoner");
+
         displaySummonerInfo(summoner);
 
     }
+
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(), 0);
+    }
+
 
     /* Making sure that the various views are available and then updating their info with the
        respective 'Summoner' object values */
@@ -162,8 +178,16 @@ public class MatchInfo extends AppCompatActivity {
         displaySummonerLvl.setText("");
 
         if (summoner != null) {
+
+            //Display toasts based on response codes
+            List<Integer> responseCodes = new ArrayList<>();
+            responseCodes.add(summoner.getSummonerV4ResponseCode());
+            responseCodes.add(summoner.getLeagueV4ResponseCode());
+            responseCodes.add(summoner.getSpectatorV4ResponseCode());
+            checkResponseCode(responseCodes);
+
             //displaySummonerName TextView
-             if (displaySummonerName != null) {
+            if (displaySummonerName != null) {
                 displaySummonerName.append(summoner.getSummonerName());
             }
 
@@ -210,7 +234,7 @@ public class MatchInfo extends AppCompatActivity {
 
     public void displayLiveGameInfo(Summoner summoner) {
 
-        if (summoner == null) {
+        if (summoner == null || !summoner.isInGame()) {
             System.out.println("Summoner has no live game data");
         }
         else {
@@ -305,12 +329,24 @@ public class MatchInfo extends AppCompatActivity {
         imageFileName.append("r");
         imageFileName.append(summoner.getProfileIconID());
 
-        return MatchInfo.this.getResources().getIdentifier(imageFileName.toString(), "drawable", getPackageName());
+        return MatchInfo.this.getResources().getIdentifier(imageFileName.toString(),
+                "drawable", getPackageName());
     }
 
     public int getChampionIDFilePath(LiveGameParticipant summoner, ChampionIDContainer champions) {
 
-        return MatchInfo.this.getResources().getIdentifier(champions.champion_key_value.get(summoner._champion_ID).toLowerCase(),
+        return MatchInfo.this.getResources().getIdentifier(
+                champions.champion_key_value.get(summoner._champion_ID).toLowerCase(),
                 "drawable", getPackageName());
+    }
+
+    //Displays a toast if there was an error for any of the API calls
+    public void checkResponseCode(List<Integer> responseCodes) {
+        RiotAPIToastManager toastManager = new RiotAPIToastManager(this);
+
+        for (int i = 0; i < responseCodes.size(); i++) {
+            toastManager.makeToast(responseCodes.get(i), i);
+        }
+
     }
 }

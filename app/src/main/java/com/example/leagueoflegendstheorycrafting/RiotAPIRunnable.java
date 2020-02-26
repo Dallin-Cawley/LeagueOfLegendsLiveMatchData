@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Looper;
 import android.service.autofill.FieldClassification;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class RiotAPIRunnable implements Runnable {
     private MainActivity referenceToMain;
     private MatchInfo referenceToMatchInfo;
+
     private Context activityContext;
     private boolean startActivity;
 
@@ -21,7 +23,7 @@ public class RiotAPIRunnable implements Runnable {
     RiotAPIRunnable(MainActivity main, MatchInfo match, Context context, EditText nameInput, boolean startActivity) {
         this.referenceToMain = main;
         this.referenceToMatchInfo = match;
-        activityContext = context;
+        this.activityContext = context;
         this.nameInput = nameInput;
         this.startActivity = startActivity;
 
@@ -41,6 +43,9 @@ public class RiotAPIRunnable implements Runnable {
             Gson json_manip = new Gson();
 
             if (riot_api != null) {
+                //Set up Toast
+                RiotAPIToastManager toaster = new RiotAPIToastManager(activityContext);
+
                 //Get General Summoner Info
                 String json_summoner_info_response = riot_api.summonerInfoByName(
                         nameInput.getText().toString());
@@ -61,18 +66,33 @@ public class RiotAPIRunnable implements Runnable {
                 summoner_info.setSpectatorV4ResponseCode(riot_api.getResponseCode());
 
                 if (startActivity) {
-                    //Start the new Activity (MatchInfo.java)
-                    Intent pass_summoner = new Intent(referenceToMain,
-                            MatchInfo.class);
-                    pass_summoner.putExtra("Summoner", summoner_info);
-                    activityContext.startActivity(pass_summoner);
+                    if (!summoner_info.getSummonerName().isEmpty()) {
+                        //Start the new Activity (MatchInfo.java)
+                        Intent pass_summoner = new Intent(referenceToMain,
+                                MatchInfo.class);
+                        pass_summoner.putExtra("Summoner", summoner_info);
+                        activityContext.startActivity(pass_summoner);
+                    }
+                    else {
+
+                    }
                 } else {
-                    referenceToMain.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            referenceToMatchInfo.displayLiveGameInfo(summoner_info);
-                        }
-                    });
+                    if (referenceToMain != null) {
+                        referenceToMain.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                referenceToMatchInfo.displayLiveGameInfo(summoner_info);
+                            }
+                        });
+                    }
+                    else {
+                        referenceToMatchInfo.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                referenceToMatchInfo.displaySummonerInfo(summoner_info);
+                            }
+                        });
+                    }
                 }
             }
         } catch (IOException e) {
