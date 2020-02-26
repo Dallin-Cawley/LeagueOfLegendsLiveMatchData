@@ -1,5 +1,6 @@
 package com.example.leagueoflegendstheorycrafting;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText nameInput;
     private Button button;
 
+    Handler mainHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private void InitializeApp() {
         button = findViewById(R.id.submit_name);
         nameInput = findViewById(R.id.name_input);
+        mainHandler = new Handler(getMainLooper());
 
         nameInput.setOnClickListener(new View.OnClickListener() {
             @Override

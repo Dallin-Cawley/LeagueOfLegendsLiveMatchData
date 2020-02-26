@@ -1,18 +1,37 @@
 package com.example.leagueoflegendstheorycrafting;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class RiotAPIConnection extends HTTPConnection{
     List<String> _url_parameters;
 
 
-    RiotAPIConnection() throws IOException {
-        super("https://na1.api.riotgames.com", "?api_key=RGAPI-857825da-1d52-4ab7-b72d-48afa3acb730");
+    RiotAPIConnection() {
+        super("https://na1.api.riotgames.com", "");
+    }
+    RiotAPIConnection(AppCompatActivity reference_to) throws IOException {
+
+        StringBuilder api_key = new StringBuilder();
+        try {
+            Scanner read_file = new Scanner(new MatchInfo().getAssets().open("RiotAPIKey.txt"));
+            while (read_file.hasNext()) {
+                api_key.append(read_file.nextLine());
+            }
+        }
+        catch(IOException i) {
+            System.out.println(i);
+        }
+
+        setBaseUrl("https://na1.api.riotgames.com");
+        setApiKey(api_key.toString());
         _url_parameters = new ArrayList<>();
 
     }

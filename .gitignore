@@ -15,6 +15,7 @@
 /app/src/androidTest/*
 /app/src/test/*
 /app/src/proguard-rules.pro/*
+/app/src/main/assets/RiotAPIKey.txt
 
 /app/app.iml
 /app/build.gradle

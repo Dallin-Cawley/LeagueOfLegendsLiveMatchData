@@ -23,6 +23,13 @@ public abstract class HTTPConnection {
         _connection_url = null;
     }
 
+    protected HTTPConnection() {
+        _BASE_URL = "";
+        _API_KEY = "";
+        _connection = null;
+        _connection_url = null;
+    }
+
 
     public void setBaseUrl(String base_url) {
        _BASE_URL = base_url;
