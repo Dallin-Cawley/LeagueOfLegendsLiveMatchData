@@ -335,8 +335,24 @@ public class MatchInfo extends AppCompatActivity {
 
     public int getChampionIDFilePath(LiveGameParticipant summoner, ChampionIDContainer champions) {
 
-        return MatchInfo.this.getResources().getIdentifier(
-                champions.champion_key_value.get(summoner._champion_ID).toLowerCase(),
+        StringBuilder champion_name = new StringBuilder();
+        champion_name.append(champions.champion_key_value.get(summoner._champion_ID));
+
+        System.out.printf("ID 7: %s\n", champions.champion_key_value.get((long)7));
+
+        int underscore_index = champion_name.indexOf("_");
+        int apostraphe_index = champion_name.indexOf("'");
+
+        if (underscore_index >= 0) {
+            champion_name.deleteCharAt(underscore_index);
+        }
+        if (apostraphe_index >= 0) {
+            champion_name.deleteCharAt(apostraphe_index);
+        }
+        System.out.printf("summoner.champion_ID: %s\nchampion_name: %s\n", summoner._champion_ID,
+                champion_name.toString().toLowerCase());
+
+        return MatchInfo.this.getResources().getIdentifier(champion_name.toString().toLowerCase(),
                 "drawable", getPackageName());
     }
 
