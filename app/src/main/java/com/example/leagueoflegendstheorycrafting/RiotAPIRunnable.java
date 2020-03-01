@@ -53,28 +53,26 @@ public class RiotAPIRunnable implements Runnable {
                         json_summoner_info_response, Summoner.class));
                 summoner_info.setSummonerV4ResponseCode(riot_api.getResponseCode());
 
-                //Get Ranked info
-                String json_summoner_rank_response = riot_api.currentRankBySummonerID(
-                        summoner_info.getSummonerID());
-                summoner_info.addRankedInfo(json_manip, json_summoner_rank_response);
-                summoner_info.setLeagueV4ResponseCode(riot_api.getResponseCode());
-
                 //Get Live Game Data
                 String json_summoner_live_game_response = riot_api.liveGameBySummonerID(
                         summoner_info.getSummonerID());
                 summoner_info.addLiveGame(json_manip, json_summoner_live_game_response);
                 summoner_info.setSpectatorV4ResponseCode(riot_api.getResponseCode());
 
+                //Get's the ranked information of the searched summoner's live game participants
+                //if the searched summoner is in a game.
+                if (summoner_info.isInGame()) {
+                    riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants, summoner_info);
+                }
+
                 if (startActivity) {
                     if (!summoner_info.getSummonerName().isEmpty()) {
+
                         //Start the new Activity (MatchInfo.java)
                         Intent pass_summoner = new Intent(referenceToMain,
                                 MatchInfo.class);
                         pass_summoner.putExtra("Summoner", summoner_info);
                         activityContext.startActivity(pass_summoner);
-                    }
-                    else {
-
                     }
                 } else {
                     if (referenceToMain != null) {

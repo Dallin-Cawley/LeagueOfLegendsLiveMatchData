@@ -256,6 +256,152 @@ public class MatchInfo extends AppCompatActivity {
                 team1SupportSummonerName.setText(summoner.current_match._participants.get(0)._summoner_name);
             }
 
+
+            //Team 1 Summoner Rank TextViews
+            if (team1TopLaneSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(4);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team1TopLaneSummonerRank.setText(rank_string.toString());
+                }
+
+            }
+            if (team1MidLaneSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(3);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team1MidLaneSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team1JungleSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(2);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team1JungleSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team1ADCSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(1);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team1ADCSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team1SupportSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(0);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team1SupportSummonerRank.setText(rank_string.toString());
+                }
+            }
+
+            //Team 2 Summoner Rank TextViews
+            if (team2TopLaneSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(9);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team2TopLaneSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team2MidLaneSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(8);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team2MidLaneSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team2JungleSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(7);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team2JungleSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team2ADCSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(6);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team2ADCSummonerRank.setText(rank_string.toString());
+                }
+            }
+            if (team2SupportSummonerRank != null) {
+                StringBuilder rank_string = new StringBuilder();
+
+                LiveGameParticipant participant = summoner.current_match._participants.get(5);
+
+                for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
+                                participant.queue_ranks.get(i)._tier);
+                    }
+
+                    team2SupportSummonerRank.setText(rank_string.toString());
+                }
+            }
+
             //Create the hashMap that has the champion ID's.
             StringBuilder champion_json = new StringBuilder();
             try {
@@ -324,12 +470,10 @@ public class MatchInfo extends AppCompatActivity {
     }
 
     public int getProfileIDFilePath(Summoner summoner) {
-        StringBuilder imageFileName = new StringBuilder();
 
-        imageFileName.append("r");
-        imageFileName.append(summoner.getProfileIconID());
+        String imageFileName = "r" + summoner.getProfileIconID();
 
-        return MatchInfo.this.getResources().getIdentifier(imageFileName.toString(),
+        return MatchInfo.this.getResources().getIdentifier(imageFileName,
                 "drawable", getPackageName());
     }
 
@@ -341,13 +485,13 @@ public class MatchInfo extends AppCompatActivity {
         System.out.printf("ID 7: %s\n", champions.champion_key_value.get((long)7));
 
         int underscore_index = champion_name.indexOf("_");
-        int apostraphe_index = champion_name.indexOf("'");
+        int apostrophe_index = champion_name.indexOf("'");
 
         if (underscore_index >= 0) {
             champion_name.deleteCharAt(underscore_index);
         }
-        if (apostraphe_index >= 0) {
-            champion_name.deleteCharAt(apostraphe_index);
+        if (apostrophe_index >= 0) {
+            champion_name.deleteCharAt(apostrophe_index);
         }
         System.out.printf("summoner.champion_ID: %s\nchampion_name: %s\n", summoner._champion_ID,
                 champion_name.toString().toLowerCase());

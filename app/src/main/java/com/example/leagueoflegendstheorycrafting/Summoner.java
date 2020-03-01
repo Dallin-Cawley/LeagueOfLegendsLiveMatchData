@@ -62,6 +62,7 @@ public class Summoner implements Serializable{
 
     }
 
+
     public void addSummonerAPICall(Summoner adding_summoner) {
         if (this.summoner_name == null && adding_summoner.summoner_name != null) {
             this.summoner_name = adding_summoner.summoner_name;
@@ -88,21 +89,32 @@ public class Summoner implements Serializable{
         if (json_ranked_info == null) {
             System.out.println("\nJson_ranked_info is null");
         }
-        else if (json_manip == null) {
-            System.out.println("\nJson_manip is null");
-        }
-        else if (_ranked_type == null) {
+
+        if (_ranked_type == null) {
             System.out.println("\n Ranked_type is null");
         }
-        collections_queue_ranks = json_manip.fromJson(json_ranked_info, _ranked_type);
+
+        if (json_manip == null) {
+            System.out.println("\nJson_manip is null");
+        }
+        else {
+            collections_queue_ranks = json_manip.fromJson(json_ranked_info, _ranked_type);
+        }
+
         if (collections_queue_ranks == null) {
             System.out.println("\n Collections_queue_rankes is null");
         }
-        queue_ranks.addAll(collections_queue_ranks);
+        else {
+            queue_ranks.addAll(collections_queue_ranks);
+        }
     }
 
     public void addLiveGame(Gson json_manip, String json_live_game_info) {
         this.current_match = json_manip.fromJson(json_live_game_info, LiveGame.class);
+    }
+
+    public void addLiveGameParticipants(List<LiveGameParticipant> participants) {
+        this.current_match._participants.addAll(participants);
     }
 
     /* Setters */

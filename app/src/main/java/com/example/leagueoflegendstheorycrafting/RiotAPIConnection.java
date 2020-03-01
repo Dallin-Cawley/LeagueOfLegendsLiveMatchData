@@ -96,4 +96,18 @@ public class RiotAPIConnection extends HTTPConnection{
 
         return getResponse();
     }
+
+    //Adds the ranked information for each participant to their LiveGameParticipant object
+    public void addLiveGameParticipantRankedInfo(List<LiveGameParticipant> participants,
+                                                 Summoner summoner) throws IOException {
+        Gson json_manip = new Gson();
+        for (LiveGameParticipant participant : participants) {
+            if (participant._summoner_name.equals(summoner.getSummonerName())) {
+                summoner.addRankedInfo(json_manip, currentRankBySummonerID(participant._summoner_ID));
+            }
+            else {
+                participant.setRank(json_manip, currentRankBySummonerID(participant._summoner_ID));
+            }
+        }
+    }
 }

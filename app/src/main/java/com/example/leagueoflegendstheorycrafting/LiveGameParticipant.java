@@ -1,8 +1,14 @@
 package com.example.leagueoflegendstheorycrafting;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class LiveGameParticipant implements Serializable {
     @SerializedName("profileIconId")
@@ -28,4 +34,20 @@ public class LiveGameParticipant implements Serializable {
 
     @SerializedName("bot")
     boolean _is_bot;
+
+    //For the list of ranks returned from the League-v4 request
+    private Type ranked_type = new TypeToken<Collection<RankedInfo>>(){}.getType();
+    public Collection<RankedInfo> collections_queue_ranks = new ArrayList<>();
+    public List<RankedInfo> queue_ranks = new ArrayList<>();
+
+
+    public void setRank(Gson json_manip, String rank_json) {
+        collections_queue_ranks = json_manip.fromJson(rank_json, ranked_type);
+        queue_ranks.addAll(collections_queue_ranks);
+    }
+
+    public List<RankedInfo> getRank() {
+        return queue_ranks;
+    }
+
 }
