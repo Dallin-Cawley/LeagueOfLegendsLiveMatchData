@@ -70,4 +70,8 @@ public class RankedInfo implements Serializable {
         }
 
     }
+
+    public void setQueueType(String queue_type) {
+        this._queue_type = queue_type;
+    }
 }

@@ -64,6 +64,10 @@ public class RiotAPIRunnable implements Runnable {
                 if (summoner_info.isInGame()) {
                     riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants, summoner_info);
                 }
+                else {
+                    String json_summoner_ranked_info = riot_api.currentRankBySummonerID(summoner_info.getSummonerID());
+                    summoner_info.addRankedInfo(json_manip, json_summoner_ranked_info);
+                }
 
                 if (startActivity) {
                     if (!summoner_info.getSummonerName().isEmpty()) {

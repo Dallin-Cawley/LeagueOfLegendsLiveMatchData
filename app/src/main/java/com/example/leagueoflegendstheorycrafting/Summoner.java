@@ -107,6 +107,22 @@ public class Summoner implements Serializable{
         else {
             queue_ranks.addAll(collections_queue_ranks);
         }
+
+        //Replace the '_' with a white space
+        for (int i = 0; i < queue_ranks.size(); i++) {
+            StringBuilder rank_type = new StringBuilder();
+            rank_type.append(queue_ranks.get(i)._queue_type);
+            int index_of_underscore = rank_type.indexOf("_");
+
+            while (index_of_underscore >= 0) {
+                rank_type.deleteCharAt(index_of_underscore);
+                rank_type.insert(index_of_underscore, " ");
+                index_of_underscore = rank_type.indexOf("_");
+            }
+
+            queue_ranks.get(i).setQueueType(rank_type.toString());
+
+        }
     }
 
     public void addLiveGame(Gson json_manip, String json_live_game_info) {
