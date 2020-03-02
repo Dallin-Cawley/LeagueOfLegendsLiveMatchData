@@ -91,7 +91,6 @@
 
 
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/summoner_name_display" >
@@ -113,6 +112,13 @@
                 android:layout_width="1dp"
                 android:layout_height="1dp" />
 
+            <TextView
+                android:id="@+id/end_dependency"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+
+                android:layout_below="@+id/team1_support_summoner_name"/>
+
             <!-- TOP LANE -->
 
             <ImageView
@@ -127,8 +133,6 @@
                 android:layout_marginStart="10dp"
 
                 android:elevation="7dp"
-
-                android:background="@color/colorAccent"
                 />
 
             <TextView
@@ -141,9 +145,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/vs"
@@ -155,14 +157,15 @@
                 android:layout_toLeftOf="@+id/team2_top_rank"
                 android:layout_toEndOf="@+id/team1_top_rank"
                 android:layout_toRightOf="@id/team1_top_rank"
+                android:layout_above="@+id/end_dependency"
 
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="189dp"
 
-                android:text="VS"
+                android:text="@string/VS"
+                android:gravity="center"
                 android:textSize="14pt"/>
 
             <ImageView
@@ -177,8 +180,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
 
-                android:elevation="7dp"
-                android:background="@color/colorAccent"/>
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_top_summoner_name"
@@ -190,8 +192,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
                 />
 
             <TextView
@@ -204,9 +204,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/team2_top_summoner_name"
@@ -220,8 +218,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
                 />
 
 
@@ -239,8 +235,6 @@
                 android:layout_marginStart="10dp"
 
                 android:elevation="7dp"
-
-                android:background="@color/colorAccent"
                 />
 
             <TextView
@@ -254,9 +248,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginLeft="10dp" />
 
 
             <ImageView
@@ -272,8 +264,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
 
-                android:elevation="7dp"
-                android:background="@color/colorAccent"/>
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_mid_summoner_name"
@@ -284,10 +275,7 @@
 
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/team2_mid_rank"
@@ -300,9 +288,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/team2_mid_summoner_name"
@@ -315,10 +301,7 @@
 
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
 
             <!-- JUNGLE -->
@@ -333,10 +316,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
 
-                android:elevation="7dp"
-
-                android:background="@color/colorAccent"
-                />
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_jungle_rank"
@@ -349,9 +329,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginLeft="10dp" />
 
 
             <ImageView
@@ -367,8 +345,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
 
-                android:elevation="7dp"
-                android:background="@color/colorAccent"/>
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_jungle_summoner_name"
@@ -379,10 +356,7 @@
 
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/team2_jungle_rank"
@@ -395,9 +369,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/team2_jungle_summoner_name"
@@ -410,10 +382,7 @@
 
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
 
             <!-- ADC -->
@@ -428,10 +397,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
 
-                android:elevation="7dp"
-
-                android:background="@color/colorAccent"
-                />
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_adc_rank"
@@ -444,9 +410,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginLeft="10dp" />
 
 
             <ImageView
@@ -462,8 +426,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
 
-                android:elevation="7dp"
-                android:background="@color/colorAccent"/>
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_adc_summoner_name"
@@ -474,10 +437,7 @@
 
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/team2_adc_rank"
@@ -490,9 +450,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/team2_adc_summoner_name"
@@ -505,10 +463,7 @@
 
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
             <!-- Support -->
             <ImageView
@@ -522,10 +477,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
 
-                android:elevation="7dp"
-
-                android:background="@color/colorAccent"
-                />
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_support_rank"
@@ -538,9 +490,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginLeft="10dp" />
 
 
             <ImageView
@@ -556,8 +506,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
 
-                android:elevation="7dp"
-                android:background="@color/colorAccent"/>
+                android:elevation="7dp" />
 
             <TextView
                 android:id="@+id/team1_support_summoner_name"
@@ -568,10 +517,7 @@
 
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-
-                android:text="SUMMONER NAME"
-                />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/team2_support_rank"
@@ -584,9 +530,7 @@
 
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-
-                android:text="RANK"/>
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/team2_support_summoner_name"
@@ -600,15 +544,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="100dp"
-
-                android:text="SUMMONER NAME"
-                />
-
-
-
-
-
+                android:layout_marginBottom="100dp" />
 
         </RelativeLayout>
 

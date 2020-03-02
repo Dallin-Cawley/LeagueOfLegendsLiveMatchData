@@ -2,24 +2,18 @@ package com.example.leagueoflegendstheorycrafting;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +24,7 @@ public class MatchInfo extends AppCompatActivity {
     TextView displaySummonerName;
     TextView displaySummonerLvl;
     TextView displaySummonerRank;
+    TextView vs_text;
 
     EditText searchAnotherSummoner;
 
@@ -94,6 +89,8 @@ public class MatchInfo extends AppCompatActivity {
     public void InitializeActivity() {
         matchInfoContext = getApplicationContext();
         final MatchInfo matchInfo = this;
+
+        vs_text = findViewById(R.id.vs);
 
         //Initialize Searched Summoner Display Items
         displaySummonerName = findViewById(R.id.summoner_name_display);
@@ -204,7 +201,8 @@ public class MatchInfo extends AppCompatActivity {
 
                 //Create the proper string for display
                 for (RankedInfo temp : summoner.queue_ranks) {
-                    summonerRank.append(temp._queue_type + ": " + temp._tier + " " + temp._rank + "\n");
+                    summonerRank.append(temp.queue_type).append(": ").append(
+                            temp.tier).append(" ").append(temp.rank).append("\n");
                 }
 
                 displaySummonerRank.setText(summonerRank.toString());
@@ -215,12 +213,12 @@ public class MatchInfo extends AppCompatActivity {
                 summonerIcon.setBackgroundResource(getProfileIDFilePath(summoner));
             }
 
-            if (summoner.isInGame()) {
-                displayLiveGameInfo(summoner);
-            }
+            displayLiveGameInfo(summoner);
         }
         else {
-            displaySummonerLvl.setText(R.string.summoner_lvl_not_found);
+            if (displaySummonerLvl != null) {
+                displaySummonerLvl.setText(R.string.summoner_lvl_not_found);
+            }
             if (displaySummonerName != null) {
                 displaySummonerName.setText(R.string.summoner_name_not_found);
             }
@@ -234,8 +232,47 @@ public class MatchInfo extends AppCompatActivity {
 
     public void displayLiveGameInfo(Summoner summoner) {
 
-        if (summoner == null || !summoner.isInGame()) {
-            System.out.println("Summoner has no live game data");
+        if (!summoner.isInGame()) {
+            String vs_string = summoner.getSummonerName() + " is not in a game";
+            vs_text.setText(vs_string);
+
+            if (team1TopLaneChamp != null) {
+                team1TopLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            team1MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team1JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team1ADCCHamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team1SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+
+            team2TopLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team2MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team2JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team2ADCChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            team2SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+
+            team1TopLaneSummonerName.setText(" ");
+            team1MidLaneSummonerName.setText(" ");
+            team1JungleSummonerName.setText(" ");
+            team1ADCSummonerName.setText(" ");
+            team1SupportSummonerName.setText(" ");
+
+            team2TopLaneSummonerName.setText(" ");
+            team2MidLaneSummonerName.setText(" ");
+            team2JungleSummonerName.setText(" ");
+            team2ADCSummonerName.setText(" ");
+            team2SupportSummonerName.setText(" ");
+
+            team1TopLaneSummonerRank.setText(" ");
+            team1MidLaneSummonerRank.setText(" ");
+            team1JungleSummonerRank.setText(" ");
+            team1ADCSummonerRank.setText(" ");
+            team1SupportSummonerRank.setText(" ");
+
+            team2TopLaneSummonerRank.setText(" ");
+            team2MidLaneSummonerRank.setText(" ");
+            team2JungleSummonerRank.setText(" ");
+            team2ADCSummonerRank.setText(" ");
+            team2SupportSummonerRank.setText(" ");
         }
         else {
 
@@ -264,9 +301,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(4);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team1TopLaneSummonerRank.setText(rank_string.toString());
@@ -279,9 +316,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(3);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team1MidLaneSummonerRank.setText(rank_string.toString());
@@ -293,9 +330,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(2);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team1JungleSummonerRank.setText(rank_string.toString());
@@ -307,9 +344,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(1);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team1ADCSummonerRank.setText(rank_string.toString());
@@ -321,9 +358,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(0);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team1SupportSummonerRank.setText(rank_string.toString());
@@ -337,9 +374,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(9);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team2TopLaneSummonerRank.setText(rank_string.toString());
@@ -351,9 +388,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(8);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team2MidLaneSummonerRank.setText(rank_string.toString());
@@ -365,9 +402,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(7);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team2JungleSummonerRank.setText(rank_string.toString());
@@ -379,9 +416,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(6);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team2ADCSummonerRank.setText(rank_string.toString());
@@ -393,9 +430,9 @@ public class MatchInfo extends AppCompatActivity {
                 LiveGameParticipant participant = summoner.current_match._participants.get(5);
 
                 for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i)._queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i)._rank + ": " +
-                                participant.queue_ranks.get(i)._tier);
+                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                        rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                ": ").append(participant.queue_ranks.get(i).rank);
                     }
 
                     team2SupportSummonerRank.setText(rank_string.toString());

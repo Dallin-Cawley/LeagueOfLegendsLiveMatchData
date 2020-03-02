@@ -7,5 +7,7 @@
     <string name="summoner_name_not_found">Summoner name not found.</string>
     <string name="summoner_lvl_not_found">Summoner level not found.</string>
     <string name="summoner_rank_not_found">Summoner rank not found.</string>
+    <string name="VS">VS</string>
+    <string name="summoner_game_not_found">Summoner is not in a game</string>
 </resources>
 

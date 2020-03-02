@@ -32,7 +32,7 @@ public class RiotAPIRunnable implements Runnable {
     public void run() {
         try {
             Looper.prepare();
-            //Set up HTTP connection
+            //Set up HTTP connection based on which activity is currently using this Runnable
             RiotAPIConnection riot_api = null;
             if (referenceToMain != null) {
                 riot_api = new RiotAPIConnection(referenceToMain);
@@ -40,6 +40,7 @@ public class RiotAPIRunnable implements Runnable {
             else if (referenceToMatchInfo != null) {
                 riot_api = new RiotAPIConnection(referenceToMatchInfo);
             }
+
             Gson json_manip = new Gson();
 
             if (riot_api != null) {
@@ -78,15 +79,15 @@ public class RiotAPIRunnable implements Runnable {
                         pass_summoner.putExtra("Summoner", summoner_info);
                         activityContext.startActivity(pass_summoner);
                     }
-                } else {
-                    if (referenceToMain != null) {
-                        referenceToMain.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                referenceToMatchInfo.displayLiveGameInfo(summoner_info);
-                            }
-                        });
-                    }
+                } //else {
+ //                   if (referenceToMain != null) {
+ //                       referenceToMain.runOnUiThread(new Runnable() {
+ //                           @Override
+ //                           public void run() {
+  //                              referenceToMatchInfo.displayLiveGameInfo(summoner_info);
+  //                          }
+  //                      });
+                    //}
                     else {
                         referenceToMatchInfo.runOnUiThread(new Runnable() {
                             @Override
@@ -96,7 +97,7 @@ public class RiotAPIRunnable implements Runnable {
                         });
                     }
                 }
-            }
+         //   }
         } catch (IOException e) {
             e.printStackTrace();
         }

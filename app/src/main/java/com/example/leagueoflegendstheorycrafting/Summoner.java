@@ -109,11 +109,12 @@ public class Summoner implements Serializable{
         }
 
         //Replace the '_' with a white space
-        for (int i = 0; i < queue_ranks.size(); i++) {
-            StringBuilder rank_type = new StringBuilder();
-            rank_type.append(queue_ranks.get(i)._queue_type);
+        for (int i = 0; i < queue_ranks.size(); i++) {       //Gets to the right spot in the List of
+            StringBuilder rank_type = new StringBuilder();   // Rank Queue's
+            rank_type.append(queue_ranks.get(i).queue_type);
             int index_of_underscore = rank_type.indexOf("_");
 
+            //Begin finding and replacing underscore
             while (index_of_underscore >= 0) {
                 rank_type.deleteCharAt(index_of_underscore);
                 rank_type.insert(index_of_underscore, " ");
