@@ -135,6 +135,19 @@
                 android:elevation="7dp"
                 />
 
+            <ImageView
+                android:id="@+id/team1_top_lane_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/start_dependency"
+                android:layout_toRightOf="@id/team1_top_lane_champ_pic"
+                android:layout_toEndOf="@id/team1_top_lane_champ_pic"
+
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"/>
+
             <TextView
                 android:id="@+id/team1_top_rank"
                 android:layout_width="wrap_content"
@@ -182,11 +195,23 @@
 
                 android:elevation="7dp" />
 
+            <ImageView
+                android:id="@+id/team2_top_lane_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/start_dependency"
+                android:layout_toLeftOf="@id/team2_top_lane_champ_pic"
+                android:layout_toStartOf="@id/team2_top_lane_champ_pic"
+
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp" />
+
             <TextView
                 android:id="@+id/team1_top_summoner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_below="@id/team1_top_lane_champ_pic"
 
                 android:layout_marginStart="10dp"
@@ -237,6 +262,19 @@
                 android:elevation="7dp"
                 />
 
+            <ImageView
+                android:id="@+id/team1_mid_lane_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team1_top_summoner_name"
+                android:layout_toRightOf="@id/team1_mid_lane_champ_pic"
+                android:layout_toEndOf="@id/team1_mid_lane_champ_pic"
+
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp" />
+
             <TextView
                 android:id="@+id/team1_mid_rank"
                 android:layout_width="wrap_content"
@@ -265,6 +303,19 @@
                 android:layout_marginTop="10dp"
 
                 android:elevation="7dp" />
+
+            <ImageView
+                android:id="@+id/team2_mid_lane_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team2_top_summoner_name"
+                android:layout_toLeftOf="@id/team2_mid_lane_champ_pic"
+                android:layout_toStartOf="@id/team2_mid_lane_champ_pic"
+
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/team1_mid_summoner_name"
@@ -347,6 +398,19 @@
 
                 android:elevation="7dp" />
 
+            <ImageView
+                android:id="@+id/team1_jungle_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team1_mid_summoner_name"
+                android:layout_toRightOf="@id/team1_jungle_champ_pic"
+                android:layout_toEndOf="@id/team1_jungle_champ_pic"
+
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp" />
+
             <TextView
                 android:id="@+id/team1_jungle_summoner_name"
                 android:layout_width="wrap_content"
@@ -370,6 +434,19 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
+
+            <ImageView
+                android:id="@+id/team2_jungle_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team2_mid_summoner_name"
+                android:layout_toLeftOf="@id/team2_jungle_champ_pic"
+                android:layout_toStartOf="@id/team2_jungle_champ_pic"
+
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/team2_jungle_summoner_name"
@@ -399,6 +476,19 @@
 
                 android:elevation="7dp" />
 
+            <ImageView
+                android:id="@+id/team1_adc_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team1_jungle_summoner_name"
+                android:layout_toRightOf="@id/team1_adc_champ_pic"
+                android:layout_toEndOf="@id/team1_adc_champ_pic"
+
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp" />
+
             <TextView
                 android:id="@+id/team1_adc_rank"
                 android:layout_width="wrap_content"
@@ -412,6 +502,18 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
+
+
+            <TextView
+                android:id="@+id/team1_adc_summoner_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/team1_adc_champ_pic"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
 
             <ImageView
                 android:id="@+id/team2_adc_champ_pic"
@@ -429,17 +531,6 @@
                 android:elevation="7dp" />
 
             <TextView
-                android:id="@+id/team1_adc_summoner_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_below="@id/team1_adc_champ_pic"
-
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
-
-            <TextView
                 android:id="@+id/team2_adc_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -451,6 +542,20 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
+
+            <ImageView
+                android:id="@+id/team2_adc_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team2_jungle_summoner_name"
+                android:layout_toLeftOf="@id/team2_adc_champ_pic"
+                android:layout_toStartOf="@id/team2_adc_champ_pic"
+
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp" />
+
 
             <TextView
                 android:id="@+id/team2_adc_summoner_name"
@@ -479,6 +584,19 @@
 
                 android:elevation="7dp" />
 
+            <ImageView
+                android:id="@+id/team1_support_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_below="@+id/team1_adc_summoner_name"
+                android:layout_toRightOf="@id/team1_support_champ_pic"
+                android:layout_toEndOf="@id/team1_support_champ_pic"
+
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp" />
+
             <TextView
                 android:id="@+id/team1_support_rank"
                 android:layout_width="wrap_content"
@@ -491,6 +609,18 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/team1_support_summoner_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/team1_support_champ_pic"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
 
 
             <ImageView
@@ -508,16 +638,19 @@
 
                 android:elevation="7dp" />
 
-            <TextView
-                android:id="@+id/team1_support_summoner_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:layout_below="@id/team1_support_champ_pic"
+            <ImageView
+                android:id="@+id/team2_support_solo_duo_rank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
 
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_below="@+id/team2_adc_summoner_name"
+                android:layout_toLeftOf="@id/team2_support_champ_pic"
+                android:layout_toStartOf="@id/team2_support_champ_pic"
+
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/team2_support_rank"

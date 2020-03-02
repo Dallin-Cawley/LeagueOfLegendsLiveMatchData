@@ -40,6 +40,20 @@ public class MatchInfo extends AppCompatActivity {
     TextView team1ADCSummonerName;
     TextView team1SupportSummonerName;
 
+    //Team 1 Rank ImageViews
+    ImageView team1TopRankIcon;
+    ImageView team1MidRankIcon;
+    ImageView team1JungleRankIcon;
+    ImageView team1ADCRankIcon;
+    ImageView team1SupportRankIcon;
+
+    //Team 2 Rank ImageViews
+    ImageView team2TopRankIcon;
+    ImageView team2MidRankIcon;
+    ImageView team2JungleRankIcon;
+    ImageView team2ADCRankIcon;
+    ImageView team2SupportRankIcon;
+
     //Team 1 Rank TextViews
     TextView team1TopLaneSummonerRank;
     TextView team1MidLaneSummonerRank;
@@ -111,6 +125,19 @@ public class MatchInfo extends AppCompatActivity {
         team2JungleChamp = findViewById(R.id.team2_jungle_champ_pic);
         team2ADCChamp = findViewById(R.id.team2_adc_champ_pic);
         team2SupportChamp = findViewById(R.id.team2_support_champ_pic);
+
+        //Initialize Live Game Participant Rank Icons
+        team1TopRankIcon = findViewById(R.id.team1_top_lane_solo_duo_rank);
+        team1MidRankIcon = findViewById(R.id.team1_mid_lane_solo_duo_rank);
+        team1JungleRankIcon = findViewById(R.id.team1_jungle_solo_duo_rank);
+        team1ADCRankIcon = findViewById(R.id.team1_adc_solo_duo_rank);
+        team1SupportRankIcon = findViewById(R.id.team1_support_solo_duo_rank);
+
+        team2TopRankIcon = findViewById(R.id.team2_top_lane_solo_duo_rank);
+        team2MidRankIcon = findViewById(R.id.team2_mid_lane_solo_duo_rank);
+        team2JungleRankIcon = findViewById(R.id.team2_jungle_solo_duo_rank);
+        team2ADCRankIcon = findViewById(R.id.team2_adc_solo_duo_rank);
+        team2SupportRankIcon = findViewById(R.id.team2_support_solo_duo_rank);
 
         //Initialize Searched Summoner Team Information
         team1TopLaneSummonerName = findViewById(R.id.team1_top_summoner_name);
@@ -236,43 +263,141 @@ public class MatchInfo extends AppCompatActivity {
             String vs_string = summoner.getSummonerName() + " is not in a game";
             vs_text.setText(vs_string);
 
+            //Reset Team 1 Champion ImageView's
             if (team1TopLaneChamp != null) {
                 team1TopLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
             }
-            team1MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team1JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team1ADCCHamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team1SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            if (team1MidLaneChamp != null) {
+                team1MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1JungleChamp != null) {
+                team1JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1ADCCHamp != null) {
+                team1ADCCHamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1SupportChamp != null) {
+                team1SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
 
-            team2TopLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team2MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team2JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team2ADCChamp.setBackgroundColor(getResources().getColor(R.color.white));
-            team2SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            //Reset Team 2 Champion ImageView's
+            if (team2TopLaneChamp != null) {
+                team2TopLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2MidLaneChamp != null) {
+                team2MidLaneChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2JungleChamp != null) {
+                team2JungleChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2ADCChamp != null) {
+                team2ADCChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2SupportChamp != null) {
+                team2SupportChamp.setBackgroundColor(getResources().getColor(R.color.white));
+            }
 
-            team1TopLaneSummonerName.setText(" ");
-            team1MidLaneSummonerName.setText(" ");
-            team1JungleSummonerName.setText(" ");
-            team1ADCSummonerName.setText(" ");
-            team1SupportSummonerName.setText(" ");
+            //Reset Team 1 Summoner Rank Icon ImageView's
+            if (team1TopRankIcon != null) {
+                team1TopRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1MidRankIcon != null) {
+                team1MidRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1JungleRankIcon != null) {
+                team1JungleRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1ADCRankIcon != null) {
+                team1ADCRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team1SupportRankIcon != null) {
+                team1SupportRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
 
-            team2TopLaneSummonerName.setText(" ");
-            team2MidLaneSummonerName.setText(" ");
-            team2JungleSummonerName.setText(" ");
-            team2ADCSummonerName.setText(" ");
-            team2SupportSummonerName.setText(" ");
+            //Reset Team 2 Summoner Rank Icon ImageView's
+            if (team2TopRankIcon != null) {
+                team2TopRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2MidRankIcon != null) {
+                team2MidRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2JungleRankIcon != null) {
+                team2JungleRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2ADCRankIcon != null) {
+                team2ADCRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            if (team2SupportRankIcon != null) {
+                team2SupportRankIcon.setBackgroundColor(getResources().getColor(R.color.white));
+            }
 
-            team1TopLaneSummonerRank.setText(" ");
-            team1MidLaneSummonerRank.setText(" ");
-            team1JungleSummonerRank.setText(" ");
-            team1ADCSummonerRank.setText(" ");
-            team1SupportSummonerRank.setText(" ");
+            //Reset Team 1 Summoner Name TextView's
+            if (team1TopLaneSummonerName != null) {
+                team1TopLaneSummonerName.setText(" ");
+            }
+            if (team1MidLaneSummonerName != null) {
+                team1MidLaneSummonerName.setText(" ");
+            }
+            if (team1JungleSummonerName != null) {
+                team1JungleSummonerName.setText(" ");
+            }
+            if (team1ADCSummonerName != null) {
+                team1ADCSummonerName.setText(" ");
+            }
+            if (team1SupportSummonerName != null) {
+                team1SupportSummonerName.setText(" ");
+            }
 
-            team2TopLaneSummonerRank.setText(" ");
-            team2MidLaneSummonerRank.setText(" ");
-            team2JungleSummonerRank.setText(" ");
-            team2ADCSummonerRank.setText(" ");
-            team2SupportSummonerRank.setText(" ");
+            //Reset Team 2 Summoner name ImageView's
+            if (team2TopLaneSummonerName != null) {
+                team2TopLaneSummonerName.setText(" ");
+            }
+            if (team2MidLaneSummonerName != null) {
+                team2MidLaneSummonerName.setText(" ");
+            }
+            if (team2JungleSummonerName != null) {
+                team2JungleSummonerName.setText(" ");
+            }
+            if (team2ADCSummonerName != null) {
+                team2ADCSummonerName.setText(" ");
+            }
+            if (team2SupportSummonerName != null) {
+                team2SupportSummonerName.setText(" ");
+            }
+
+            //Reset Team 1 Summoner Rank TextView's
+            if (team1TopLaneSummonerRank != null) {
+                team1TopLaneSummonerRank.setText(" ");
+            }
+            if (team1MidLaneSummonerRank != null) {
+                team1MidLaneSummonerRank.setText(" ");
+            }
+            if (team1JungleSummonerRank != null) {
+                team1JungleSummonerRank.setText(" ");
+            }
+            if (team1ADCSummonerRank != null) {
+                team1ADCSummonerRank.setText(" ");
+            }
+            if (team1SupportSummonerRank != null) {
+                team1SupportSummonerRank.setText(" ");
+            }
+
+            //Reset Team 2 Summoner Rank ImageView's
+            if (team2TopLaneSummonerRank != null) {
+                team2TopLaneSummonerRank.setText(" ");
+            }
+            if (team2MidLaneSummonerRank != null) {
+                team2MidLaneSummonerRank.setText(" ");
+            }
+            if (team2JungleSummonerRank != null) {
+                team2JungleSummonerRank.setText(" ");
+            }
+            if (team2ADCSummonerRank != null) {
+                team2ADCSummonerRank.setText(" ");
+            }
+            if (team2SupportSummonerRank != null) {
+                team2SupportSummonerRank.setText(" ");
+            }
         }
         else {
 
@@ -293,6 +418,66 @@ public class MatchInfo extends AppCompatActivity {
                 team1SupportSummonerName.setText(summoner.current_match._participants.get(0)._summoner_name);
             }
 
+            //Team 1 Summoner Rank Icon ImageView's
+            if (team1TopRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(4));
+                if (resource_id >= 0) {
+                    team1TopRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team1MidRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(3));
+                if (resource_id >= 0) {
+                    team1MidRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team1JungleRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(2));
+                if (resource_id >= 0) {
+                    team1JungleRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team1ADCRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(1));
+                if (resource_id >= 0) {
+                    team1ADCRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team1SupportRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(0));
+                if (resource_id >= 0) {
+                    team1SupportRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+
+            //Team 2 Summoner Rank Icon ImageView's
+            if (team2TopRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(9));
+                if (resource_id >= 0) {
+                    team2TopRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team2MidRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(8));
+                if (resource_id >= 0) {
+                    team2MidRankIcon.setBackgroundResource(resource_id);
+                }
+            }
+            if (team2JungleRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(7));
+                if (resource_id >= 0) {
+                    team2JungleRankIcon.setBackgroundResource(resource_id);
+                }            }
+            if (team2ADCRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(6));
+                if (resource_id >= 0) {
+                    team2ADCRankIcon.setBackgroundResource(resource_id);
+                }            }
+            if (team2SupportRankIcon != null) {
+                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(5));
+                if (resource_id >= 0) {
+                    team2SupportRankIcon.setBackgroundResource(resource_id);
+                }            }
 
             //Team 1 Summoner Rank TextViews
             if (team1TopLaneSummonerRank != null) {
@@ -512,6 +697,22 @@ public class MatchInfo extends AppCompatActivity {
 
         return MatchInfo.this.getResources().getIdentifier(imageFileName,
                 "drawable", getPackageName());
+    }
+
+    public int getRankIconFilePath(LiveGameParticipant participant) {
+        int index_of_solo_rank = -1;
+        for (int i = 0; i < participant.queue_ranks.size(); i++) {
+            if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                index_of_solo_rank = i;
+                break;
+            }
+        }
+
+        if (index_of_solo_rank >= 0) {
+            return MatchInfo.this.getResources().getIdentifier(participant.queue_ranks.get(
+                    index_of_solo_rank).tier.toLowerCase(), "drawable", getPackageName());
+        }
+        return -1;
     }
 
     public int getChampionIDFilePath(LiveGameParticipant summoner, ChampionIDContainer champions) {
