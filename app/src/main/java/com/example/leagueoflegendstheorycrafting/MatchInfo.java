@@ -205,7 +205,6 @@ public class MatchInfo extends AppCompatActivity {
 
             //Display toasts based on response codes
             List<Integer> responseCodes = new ArrayList<>();
-            responseCodes.add(summoner.getSummonerV4ResponseCode());
             responseCodes.add(summoner.getLeagueV4ResponseCode());
             responseCodes.add(summoner.getSpectatorV4ResponseCode());
             checkResponseCode(responseCodes);
@@ -743,7 +742,7 @@ public class MatchInfo extends AppCompatActivity {
         RiotAPIToastManager toastManager = new RiotAPIToastManager(this);
 
         for (int i = 0; i < responseCodes.size(); i++) {
-            toastManager.makeToast(responseCodes.get(i), i);
+            toastManager.makeToast(responseCodes.get(i), i + 1);
         }
 
     }

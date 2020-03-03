@@ -167,16 +167,13 @@
                 android:layout_height="wrap_content"
 
                 android:layout_below="@id/start_dependency"
-                android:layout_toStartOf="@+id/team2_top_rank"
-                android:layout_toLeftOf="@+id/team2_top_rank"
-                android:layout_toEndOf="@+id/team1_top_rank"
-                android:layout_toRightOf="@id/team1_top_rank"
+                android:layout_toStartOf="@+id/team2_top_lane_solo_duo_rank"
+                android:layout_toLeftOf="@+id/team2_top_lane_solo_duo_rank"
+                android:layout_toEndOf="@+id/team1_top_lane_solo_duo_rank"
+                android:layout_toRightOf="@id/team1_top_lane_solo_duo_rank"
                 android:layout_above="@+id/end_dependency"
 
-                android:layout_marginLeft="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
+
 
                 android:text="@string/VS"
                 android:gravity="center"

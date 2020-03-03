@@ -19,7 +19,7 @@ public class Summoner implements Serializable{
 
 
     //For the list of ranks returned from the League-v4 request
-    private Type _ranked_type;
+    private Type ranked_type;
     public Collection<RankedInfo> collections_queue_ranks;
     public List<RankedInfo> queue_ranks;
 
@@ -56,10 +56,23 @@ public class Summoner implements Serializable{
         this.summoner_name = new_summoner.summoner_name;
         this.summoner_lvl = new_summoner.summoner_lvl;
 
-        this._ranked_type = new TypeToken<Collection<RankedInfo>>(){}.getType();
+        this.ranked_type = new TypeToken<Collection<RankedInfo>>(){}.getType();
         this.collections_queue_ranks = new ArrayList<>();
         this.queue_ranks = new ArrayList<>();
 
+    }
+
+    public Summoner() {
+        account_ID = null;
+        profile_icon_ID = null;
+        pu_ID = null;
+        summoner_ID = null;
+        summoner_name = null;
+        summoner_lvl = -1;
+
+        ranked_type = null;
+        collections_queue_ranks = null;
+        queue_ranks = null;
     }
 
 
@@ -90,7 +103,7 @@ public class Summoner implements Serializable{
             System.out.println("\nJson_ranked_info is null");
         }
 
-        if (_ranked_type == null) {
+        if (ranked_type == null) {
             System.out.println("\n Ranked_type is null");
         }
 
@@ -98,7 +111,7 @@ public class Summoner implements Serializable{
             System.out.println("\nJson_manip is null");
         }
         else {
-            collections_queue_ranks = json_manip.fromJson(json_ranked_info, _ranked_type);
+            collections_queue_ranks = json_manip.fromJson(json_ranked_info, ranked_type);
         }
 
         if (collections_queue_ranks == null) {

@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+
 public class RiotAPIRunnable implements Runnable {
     private MainActivity referenceToMain;
     private MatchInfo referenceToMatchInfo;
@@ -45,50 +47,54 @@ public class RiotAPIRunnable implements Runnable {
 
             if (riot_api != null) {
                 //Set up Toast
-                RiotAPIToastManager toaster = new RiotAPIToastManager(activityContext);
+                final RiotAPIToastManager toaster = new RiotAPIToastManager(activityContext);
 
                 //Get General Summoner Info
                 String json_summoner_info_response = riot_api.summonerInfoByName(
                         nameInput.getText().toString());
-                final Summoner summoner_info = new Summoner(json_manip.fromJson(
-                        json_summoner_info_response, Summoner.class));
-                summoner_info.setSummonerV4ResponseCode(riot_api.getResponseCode());
+                final Summoner summoner_info;
+                Summoner summoner_null_check = json_manip.fromJson(
+                        json_summoner_info_response, Summoner.class);
 
-                //Get Live Game Data
-                String json_summoner_live_game_response = riot_api.liveGameBySummonerID(
-                        summoner_info.getSummonerID());
-                summoner_info.addLiveGame(json_manip, json_summoner_live_game_response);
-                summoner_info.setSpectatorV4ResponseCode(riot_api.getResponseCode());
-
-                //Get's the ranked information of the searched summoner's live game participants
-                //if the searched summoner is in a game.
-                if (summoner_info.isInGame()) {
-                    riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants, summoner_info);
+                if (summoner_null_check != null) {
+                    summoner_info = new Summoner(summoner_null_check);
+                    summoner_info.setSummonerV4ResponseCode(riot_api.getResponseCode());
                 }
                 else {
-                    String json_summoner_ranked_info = riot_api.currentRankBySummonerID(summoner_info.getSummonerID());
-                    summoner_info.addRankedInfo(json_manip, json_summoner_ranked_info);
+                    summoner_info = new Summoner();
+                    summoner_info.setSummonerV4ResponseCode(404);
                 }
 
-                if (startActivity) {
-                    if (!summoner_info.getSummonerName().isEmpty()) {
 
-                        //Start the new Activity (MatchInfo.java)
-                        Intent pass_summoner = new Intent(referenceToMain,
-                                MatchInfo.class);
-                        pass_summoner.putExtra("Summoner", summoner_info);
-                        activityContext.startActivity(pass_summoner);
+                //Making sure the searched summoner exists
+                if (summoner_info.getSummonerV4ResponseCode() == HttpURLConnection.HTTP_OK) {
+                    //If the searched summoner exists. Do the following.....
+
+                    //Get Live Game Data
+                    String json_summoner_live_game_response = riot_api.liveGameBySummonerID(
+                            summoner_info.getSummonerID());
+                    summoner_info.addLiveGame(json_manip, json_summoner_live_game_response);
+                    summoner_info.setSpectatorV4ResponseCode(riot_api.getResponseCode());
+
+                    //Get's the ranked information of the searched summoner's live game participants
+                    //if the searched summoner is in a game.
+                    if (summoner_info.isInGame()) {
+                        riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants, summoner_info);
+                    } else {
+                        String json_summoner_ranked_info = riot_api.currentRankBySummonerID(summoner_info.getSummonerID());
+                        summoner_info.addRankedInfo(json_manip, json_summoner_ranked_info);
                     }
-                } //else {
- //                   if (referenceToMain != null) {
- //                       referenceToMain.runOnUiThread(new Runnable() {
- //                           @Override
- //                           public void run() {
-  //                              referenceToMatchInfo.displayLiveGameInfo(summoner_info);
-  //                          }
-  //                      });
-                    //}
-                    else {
+
+                    if (startActivity) {
+                        if (!summoner_info.getSummonerName().isEmpty()) {
+
+                            //Start the new Activity (MatchInfo.java)
+                            Intent pass_summoner = new Intent(referenceToMain,
+                                    MatchInfo.class);
+                            pass_summoner.putExtra("Summoner", summoner_info);
+                            activityContext.startActivity(pass_summoner);
+                        }
+                    } else {
                         referenceToMatchInfo.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -97,7 +103,27 @@ public class RiotAPIRunnable implements Runnable {
                         });
                     }
                 }
-         //   }
+                else {
+                    if (referenceToMatchInfo != null) {
+                        referenceToMatchInfo.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                toaster.makeToast(summoner_info.getSummonerV4ResponseCode(),
+                                        RiotAPIToastRequest.SUMMONER_INFO);
+                            }
+                        });
+                    }
+                    else if (referenceToMain != null) {
+                        referenceToMain.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                toaster.makeToast(summoner_info.getSummonerV4ResponseCode(),
+                                        RiotAPIToastRequest.SUMMONER_INFO);
+                            }
+                        });
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
