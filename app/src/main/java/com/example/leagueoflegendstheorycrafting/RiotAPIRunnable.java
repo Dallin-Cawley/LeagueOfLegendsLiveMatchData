@@ -62,7 +62,7 @@ public class RiotAPIRunnable implements Runnable {
                 }
                 else {
                     summoner_info = new Summoner();
-                    summoner_info.setSummonerV4ResponseCode(404);
+                    summoner_info.setSummonerV4ResponseCode(riot_api.getResponseCode());
                 }
 
 

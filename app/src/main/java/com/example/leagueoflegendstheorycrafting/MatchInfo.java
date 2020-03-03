@@ -400,6 +400,9 @@ public class MatchInfo extends AppCompatActivity {
         }
         else {
 
+            //Set the VS TextView
+            vs_text.setText(R.string.VS);
+
             //Team 1 Summoner Name TextViews
             if (team1TopLaneSummonerName != null) {
                 team1TopLaneSummonerName.setText(summoner.current_match._participants.get(4)._summoner_name);
