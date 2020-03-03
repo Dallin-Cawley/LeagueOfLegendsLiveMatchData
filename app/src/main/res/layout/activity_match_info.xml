@@ -606,9 +606,9 @@
 
                 android:layout_toEndOf="@id/team1_support_champ_pic"
                 android:layout_toRightOf="@id/team1_support_champ_pic"
-                android:layout_below="@id/team1_adc_summoner_name"
+                android:layout_below="@id/team1_support_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
