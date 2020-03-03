@@ -153,10 +153,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_below="@+id/team1_top_lane_solo_duo_rank"
                 android:layout_toEndOf="@id/team1_top_lane_champ_pic"
                 android:layout_toRightOf="@id/team1_top_lane_champ_pic"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
@@ -224,10 +225,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_below="@+id/team2_top_lane_solo_duo_rank"
                 android:layout_toStartOf="@id/team2_top_lane_champ_pic"
                 android:layout_toLeftOf="@id/team2_top_lane_champ_pic"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
 
@@ -282,9 +284,9 @@
 
                 android:layout_toEndOf="@id/team1_mid_lane_champ_pic"
                 android:layout_toRightOf="@id/team1_mid_lane_champ_pic"
-                android:layout_below="@id/team1_top_summoner_name"
+                android:layout_below="@id/team1_mid_lane_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
@@ -335,9 +337,9 @@
 
                 android:layout_toStartOf="@id/team2_mid_lane_champ_pic"
                 android:layout_toLeftOf="@id/team2_mid_lane_champ_pic"
-                android:layout_below="@id/team2_top_summoner_name"
+                android:layout_below="@id/team2_mid_lane_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
 
@@ -376,9 +378,9 @@
 
                 android:layout_toEndOf="@id/team1_jungle_champ_pic"
                 android:layout_toRightOf="@id/team1_jungle_champ_pic"
-                android:layout_below="@id/team1_mid_summoner_name"
+                android:layout_below="@id/team1_jungle_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
@@ -429,9 +431,9 @@
 
                 android:layout_toStartOf="@id/team2_jungle_champ_pic"
                 android:layout_toLeftOf="@id/team2_jungle_champ_pic"
-                android:layout_below="@id/team2_mid_summoner_name"
+                android:layout_below="@id/team2_jungle_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
 
@@ -496,9 +498,9 @@
 
                 android:layout_toEndOf="@id/team1_adc_champ_pic"
                 android:layout_toRightOf="@id/team1_adc_champ_pic"
-                android:layout_below="@id/team1_jungle_summoner_name"
+                android:layout_below="@id/team1_jungle_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp" />
 
@@ -537,9 +539,9 @@
 
                 android:layout_toStartOf="@id/team2_adc_champ_pic"
                 android:layout_toLeftOf="@id/team2_adc_champ_pic"
-                android:layout_below="@id/team2_jungle_summoner_name"
+                android:layout_below="@id/team2_adc_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
 
@@ -659,9 +661,9 @@
 
                 android:layout_toStartOf="@id/team2_support_champ_pic"
                 android:layout_toLeftOf="@id/team2_support_champ_pic"
-                android:layout_below="@id/team2_adc_summoner_name"
+                android:layout_below="@id/team2_support_solo_duo_rank"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
 
