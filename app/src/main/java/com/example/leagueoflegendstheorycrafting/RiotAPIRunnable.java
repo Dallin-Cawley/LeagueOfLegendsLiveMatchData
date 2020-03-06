@@ -85,12 +85,14 @@ public class RiotAPIRunnable implements Runnable {
                         summoner_info.addRankedInfo(json_manip, json_summoner_ranked_info);
                     }
 
+                    //This if statement is used to determine if this runnable is used in the MainActivity or MatchInfo
                     if (startActivity) {
                         if (!summoner_info.getSummonerName().isEmpty()) {
 
                             //Start the new Activity (MatchInfo.java)
                             Intent pass_summoner = new Intent(referenceToMain,
                                     MatchInfo.class);
+                            pass_summoner.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             pass_summoner.putExtra("Summoner", summoner_info);
                             activityContext.startActivity(pass_summoner);
                         }
