@@ -397,234 +397,7 @@ public class MatchInfo extends AppCompatActivity {
             if (team2SupportSummonerRank != null) {
                 team2SupportSummonerRank.setText(" ");
             }
-        }
-        else {
-
-            //Set the VS TextView
-            vs_text.setText(R.string.VS);
-
-            //Team 1 Summoner Name TextViews
-            if (team1TopLaneSummonerName != null) {
-                team1TopLaneSummonerName.setText(summoner.current_match._participants.get(4)._summoner_name);
-            }
-            if (team1MidLaneSummonerName != null) {
-                team1MidLaneSummonerName.setText(summoner.current_match._participants.get(3)._summoner_name);
-            }
-            if (team1JungleSummonerName != null) {
-                team1JungleSummonerName.setText(summoner.current_match._participants.get(2)._summoner_name);
-            }
-            if (team1ADCSummonerName != null) {
-                team1ADCSummonerName.setText(summoner.current_match._participants.get(1)._summoner_name);
-            }
-            if (team1SupportSummonerName != null) {
-                team1SupportSummonerName.setText(summoner.current_match._participants.get(0)._summoner_name);
-            }
-
-            //Team 1 Summoner Rank Icon ImageView's
-            if (team1TopRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(4));
-                if (resource_id >= 0) {
-                    team1TopRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team1MidRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(3));
-                if (resource_id >= 0) {
-                    team1MidRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team1JungleRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(2));
-                if (resource_id >= 0) {
-                    team1JungleRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team1ADCRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(1));
-                if (resource_id >= 0) {
-                    team1ADCRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team1SupportRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(0));
-                if (resource_id >= 0) {
-                    team1SupportRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-
-            //Team 2 Summoner Rank Icon ImageView's
-            if (team2TopRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(9));
-                if (resource_id >= 0) {
-                    team2TopRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team2MidRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(8));
-                if (resource_id >= 0) {
-                    team2MidRankIcon.setBackgroundResource(resource_id);
-                }
-            }
-            if (team2JungleRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(7));
-                if (resource_id >= 0) {
-                    team2JungleRankIcon.setBackgroundResource(resource_id);
-                }            }
-            if (team2ADCRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(6));
-                if (resource_id >= 0) {
-                    team2ADCRankIcon.setBackgroundResource(resource_id);
-                }            }
-            if (team2SupportRankIcon != null) {
-                int resource_id = getRankIconFilePath(summoner.current_match._participants.get(5));
-                if (resource_id >= 0) {
-                    team2SupportRankIcon.setBackgroundResource(resource_id);
-                }            }
-
-            //Team 1 Summoner Rank TextViews
-            if (team1TopLaneSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(4);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team1TopLaneSummonerRank.setText(rank_string.toString());
-                }
-
-            }
-            if (team1MidLaneSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(3);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team1MidLaneSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team1JungleSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(2);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team1JungleSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team1ADCSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(1);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team1ADCSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team1SupportSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(0);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team1SupportSummonerRank.setText(rank_string.toString());
-                }
-            }
-
-            //Team 2 Summoner Rank TextViews
-            if (team2TopLaneSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(9);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team2TopLaneSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team2MidLaneSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(8);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team2MidLaneSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team2JungleSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(7);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team2JungleSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team2ADCSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(6);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team2ADCSummonerRank.setText(rank_string.toString());
-                }
-            }
-            if (team2SupportSummonerRank != null) {
-                StringBuilder rank_string = new StringBuilder();
-
-                LiveGameParticipant participant = summoner.current_match._participants.get(5);
-
-                for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                    if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                        rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                ": ").append(participant.queue_ranks.get(i).rank);
-                    }
-
-                    team2SupportSummonerRank.setText(rank_string.toString());
-                }
-            }
+        } else {
 
             //Create the hashMap that has the champion ID's.
             StringBuilder champion_json = new StringBuilder();
@@ -633,63 +406,416 @@ public class MatchInfo extends AppCompatActivity {
                 while (read_file.hasNext()) {
                     champion_json.append(read_file.nextLine());
                 }
-            }
-            catch(IOException i) {
+            } catch (IOException i) {
                 System.out.println(i);
             }
 
-            ChampionIDContainer champions = new Gson().fromJson(champion_json.toString(), ChampionIDContainer.class);
+            ChampionIDContainer champions = new Gson().fromJson(champion_json.toString(),
+                    ChampionIDContainer.class);
 
-            //Team 1 Champion ImageViews
-            if (team1TopLaneChamp != null) {
-                team1TopLaneChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(4), champions));
-            }
-            if (team1MidLaneChamp != null) {
-                team1MidLaneChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(3), champions));
-            }
-            if (team1JungleChamp != null) {
-                team1JungleChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(2), champions));
-            }
-            if (team1ADCCHamp != null) {
-                team1ADCCHamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(1), champions));
-            }
-            if (team1SupportChamp != null) {
-                team1SupportChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(0), champions));
+            //Begin iterating through all the LiveGameParticipants to display
+            //appropriate information
+            boolean summonerFoundT1 = false;
+            FillView which_view = FillView.MID_LANE_1;
+            for (LiveGameParticipant participant : summoner.current_match._participants) {
+                if (participant._summoner_name.equals(summoner.getSummonerName())) {
+                    if (participant._team_ID == 100) {
+
+                        //Display Summoner name
+                        if (team1TopLaneSummonerName != null) {
+                            team1TopLaneSummonerName.setText(summoner.getSummonerName());
+                        }
+
+                        //Display Summoner rank
+                        if (team1TopLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+                            for (int i = 0; i < summoner.queue_ranks.size(); i++) {
+                                if (summoner.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(summoner.queue_ranks.get(i).tier).append(
+                                            ": ").append(summoner.queue_ranks.get(i).rank);
+                                }
+
+                                team1TopLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+
+                        //Display Summoner Rank Icon
+                        if (team1TopRankIcon != null) {
+                            int resource_id = getRankIconFilePath(summoner);
+                            if (resource_id >= 0) {
+                                team1TopRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+
+                        //Display Summoner in-game Champion
+                        if (team1TopLaneChamp != null) {
+                            int resource_id = getChampionIDFilePath(participant, champions);
+                            if (resource_id > 0) {
+                                team1TopLaneChamp.setBackgroundResource(resource_id);
+                            }
+                        }
+
+                        System.out.println("Summoner found in Team 1");
+                        summonerFoundT1 = true;
+                        continue;
+                    }
+                    else {
+                        System.out.println("Summoner found in Team 2");
+                        //Display Summoner name
+                        if (team2TopLaneSummonerName != null) {
+                            team2TopLaneSummonerName.setText(summoner.getSummonerName());
+                        }
+
+                        //Display Summoner rank
+                        if (team2TopLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+                            for (int i = 0; i < summoner.queue_ranks.size(); i++) {
+                                if (summoner.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(summoner.queue_ranks.get(i).tier).append(
+                                            ": ").append(summoner.queue_ranks.get(i).rank);
+                                }
+
+                                team2TopLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+
+                        //Display Summoner Rank Icon
+                        if (team2TopRankIcon != null) {
+                            int resource_id = getRankIconFilePath(summoner);
+                            if (resource_id >= 0) {
+                                team2TopRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+
+                        //Display Summoner in-game Champion
+                        if (team2TopLaneChamp != null) {
+                            int resource_id = getChampionIDFilePath(participant, champions);
+                            if (resource_id > 0) {
+                                team2TopLaneChamp.setBackgroundResource(resource_id);
+                            }
+                        }
+                        continue;
+                    }
+                }
+                switch (which_view) {
+
+                    case MID_LANE_1:
+                        if (team1MidLaneSummonerName != null) {
+                            team1MidLaneSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team1MidLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team1MidLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team1MidLaneChamp != null) {
+                            team1MidLaneChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+                        if (team1MidRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team1MidRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        which_view = FillView.JUNGLE_1;
+                        break;
+
+                    case JUNGLE_1:
+                        if (team1JungleSummonerName != null) {
+                            team1JungleSummonerName.setText(
+                                    participant._summoner_name);
+                        }
+                        if (team1JungleRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team1JungleRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team1JungleSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team1JungleSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team1JungleChamp != null) {
+                            team1JungleChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        which_view = FillView.ADC_1;
+                        break;
+
+                    case ADC_1:
+                        if (team1ADCSummonerName != null) {
+                            team1ADCSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team1ADCRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team1ADCRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team1ADCSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team1ADCSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team1ADCCHamp != null) {
+                            team1ADCCHamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        which_view = FillView.SUPPORT_1;
+                        break;
+
+                    case SUPPORT_1:
+                        if (team1SupportSummonerName != null) {
+                            team1SupportSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team1SupportRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team1SupportRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team1SupportSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team1SupportSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team1SupportChamp != null) {
+                            team1SupportChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        if (summonerFoundT1) {
+                            which_view = FillView.TOP_2;
+                        } else {
+                            which_view = FillView.TOP_1;
+                        }
+                        break;
+
+                    case TOP_1:
+
+                        if (team1TopLaneSummonerName != null) {
+                            team1TopLaneSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team1TopRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team1TopRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team1TopLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team1TopLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team1TopLaneChamp != null) {
+                            team1TopLaneChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        if (participant._summoner_name.equals(summoner.getSummonerName())) {
+                            which_view = FillView.TOP_2;
+                        }
+                        else {
+                            which_view = FillView.MID_LANE_2;
+                        }
+                        break;
+
+                    case TOP_2:
+                        if (team2TopLaneSummonerName != null) {
+                            team2TopLaneSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team2TopRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team2TopRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team2TopLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team2TopLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team2TopLaneChamp != null) {
+                            team2TopLaneChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        which_view = FillView.MID_LANE_2;
+                        break;
+
+                    case MID_LANE_2:
+
+                        if (team2MidLaneSummonerName != null) {
+                            team2MidLaneSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team2MidRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team2MidRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team2MidLaneSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team2MidLaneSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team2MidLaneChamp != null) {
+                            team2MidLaneChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+
+                        which_view = FillView.JUNGLE_2;
+                        break;
+                    case JUNGLE_2:
+
+                        if (team2JungleSummonerName != null) {
+                            team2JungleSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team2JungleRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team2JungleRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team2JungleSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team2JungleSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team2JungleChamp != null) {
+                            team2JungleChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        which_view = FillView.ADC_2;
+                        break;
+
+                    case ADC_2:
+
+                        if (team2ADCSummonerName != null) {
+                            team2ADCSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team2ADCRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team2ADCRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team2ADCSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team2ADCSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team2ADCChamp != null) {
+                            team2ADCChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        which_view = FillView.SUPPORT_2;
+                        break;
+
+                    case SUPPORT_2:
+
+                        if (team2SupportSummonerName != null) {
+                            team2SupportSummonerName.setText(participant._summoner_name);
+                        }
+                        if (team2SupportRankIcon != null) {
+                            int resource_id = getRankIconFilePath(participant);
+                            if (resource_id >= 0) {
+                                team2SupportRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
+                        if (team2SupportSummonerRank != null) {
+                            StringBuilder rank_string = new StringBuilder();
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
+                                }
+
+                                team2SupportSummonerRank.setText(rank_string.toString());
+                            }
+                        }
+                        if (team2SupportChamp != null) {
+                            team2SupportChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
+                        }
+
+                        break;
+                }
             }
 
-            //Team 2 Summoner Name TextViews
-            if (team2TopLaneSummonerName != null) {
-                team2TopLaneSummonerName.setText(summoner.current_match._participants.get(9)._summoner_name);
-            }
-            if (team2MidLaneSummonerName != null) {
-                team2MidLaneSummonerName.setText(summoner.current_match._participants.get(8)._summoner_name);
-            }
-            if (team2JungleSummonerName != null) {
-                team2JungleSummonerName.setText(summoner.current_match._participants.get(7)._summoner_name);
-            }
-            if (team2ADCSummonerName != null) {
-                team2ADCSummonerName.setText(summoner.current_match._participants.get(6)._summoner_name);
-            }
-            if (team2SupportSummonerName != null) {
-                team2SupportSummonerName.setText(summoner.current_match._participants.get(5)._summoner_name);
-            }
-
-            //Team 2 Champion ImageViews
-            if (team2TopLaneChamp != null) {
-                team2TopLaneChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(9), champions));
-            }
-            if (team2MidLaneChamp != null) {
-                team2MidLaneChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(8), champions));
-            }
-            if (team2JungleChamp != null) {
-                team2JungleChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(7), champions));
-            }
-            if (team2ADCChamp != null) {
-                team2ADCChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(6), champions));
-            }
-            if (team2SupportChamp != null) {
-                team2SupportChamp.setBackgroundResource(getChampionIDFilePath(summoner.current_match._participants.get(5), champions));
-            }
+            //Set the VS TextView
+            vs_text.setText(R.string.VS);
         }
     }
 
@@ -717,12 +843,26 @@ public class MatchInfo extends AppCompatActivity {
         return -1;
     }
 
+    public int getRankIconFilePath(Summoner participant) {
+        int index_of_solo_rank = -1;
+        for (int i = 0; i < participant.queue_ranks.size(); i++) {
+            if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                index_of_solo_rank = i;
+                break;
+            }
+        }
+
+        if (index_of_solo_rank >= 0) {
+            return MatchInfo.this.getResources().getIdentifier(participant.queue_ranks.get(
+                    index_of_solo_rank).tier.toLowerCase(), "drawable", getPackageName());
+        }
+        return -1;
+    }
+
     public int getChampionIDFilePath(LiveGameParticipant summoner, ChampionIDContainer champions) {
 
         StringBuilder champion_name = new StringBuilder();
         champion_name.append(champions.champion_key_value.get(summoner._champion_ID));
-
-        System.out.printf("ID 7: %s\n", champions.champion_key_value.get((long)7));
 
         int underscore_index = champion_name.indexOf("_");
         int apostrophe_index = champion_name.indexOf("'");
@@ -733,8 +873,6 @@ public class MatchInfo extends AppCompatActivity {
         if (apostrophe_index >= 0) {
             champion_name.deleteCharAt(apostrophe_index);
         }
-        System.out.printf("summoner.champion_ID: %s\nchampion_name: %s\n", summoner._champion_ID,
-                champion_name.toString().toLowerCase());
 
         return MatchInfo.this.getResources().getIdentifier(champion_name.toString().toLowerCase(),
                 "drawable", getPackageName());

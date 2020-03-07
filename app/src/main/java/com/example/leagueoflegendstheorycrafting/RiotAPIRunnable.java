@@ -96,7 +96,8 @@ public class RiotAPIRunnable implements Runnable {
                             pass_summoner.putExtra("Summoner", summoner_info);
                             activityContext.startActivity(pass_summoner);
                         }
-                    } else {
+                    }
+                    else {
                         referenceToMatchInfo.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
