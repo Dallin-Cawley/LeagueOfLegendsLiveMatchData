@@ -23,12 +23,15 @@ public class MatchInfo extends AppCompatActivity {
 
     TextView displaySummonerName;
     TextView displaySummonerLvl;
-    TextView displaySummonerRank;
+    TextView displaySummonerSoloRank;
     TextView vs_text;
+    TextView displaySummonerFlexRank;
 
     EditText searchAnotherSummoner;
 
     ImageView summonerIcon;
+    ImageView soloDuoRankIcon;
+    ImageView flexRankIcon;
 
     Intent receivedSummoner;
     Context matchInfoContext;
@@ -110,7 +113,12 @@ public class MatchInfo extends AppCompatActivity {
         displaySummonerName = findViewById(R.id.summoner_name_display);
         summonerIcon = findViewById(R.id.summoner_icon);
         displaySummonerLvl = findViewById(R.id.summoner_lvl_display);
-        displaySummonerRank = findViewById(R.id.summoner_rank_display);
+
+        displaySummonerSoloRank = findViewById(R.id.summoner_rank_solo_duo_display);
+        displaySummonerFlexRank = findViewById(R.id.summoner_rank_flex_display);
+        soloDuoRankIcon = findViewById(R.id.ranked_solo_duo_icon);
+        flexRankIcon = findViewById(R.id.ranked_flex_icon);
+
         searchAnotherSummoner = findViewById(R.id.search_another_summoner);
 
         //Initialize team champion image views
@@ -182,6 +190,8 @@ public class MatchInfo extends AppCompatActivity {
         //Get the result from our Riot API request for summoner data from the previous activity
         Summoner summoner = (Summoner) receivedSummoner.getSerializableExtra("Summoner");
 
+
+
         displaySummonerInfo(summoner);
 
     }
@@ -198,7 +208,7 @@ public class MatchInfo extends AppCompatActivity {
        respective 'Summoner' object values */
     public void displaySummonerInfo(Summoner summoner){
         displaySummonerName.setText("");
-        displaySummonerRank.setText("");
+        displaySummonerSoloRank.setText("");
         displaySummonerLvl.setText("");
 
         if (summoner != null) {
@@ -221,22 +231,69 @@ public class MatchInfo extends AppCompatActivity {
 
             }
 
-            //displaySummonerRank TextView
-            if (displaySummonerRank != null && !summoner.queue_ranks.isEmpty()) {
-                StringBuilder summonerRank = new StringBuilder();
+            int index_of_solo_rank = -1;
+            int index_of_flex_rank = -1;
+            //displaySummonerSoloRank and displaySummonerFlexRank TexViews
+            if (!summoner.queue_ranks.isEmpty()) {
 
-                //Create the proper string for display
                 for (RankedInfo temp : summoner.queue_ranks) {
-                    summonerRank.append(temp.queue_type).append(": ").append(
-                            temp.tier).append(" ").append(temp.rank).append("\n");
-                }
+                    if (temp.queue_type.contains("SOLO")) {
+                        //Get index of solo rank for later use in getting ranked icon @ line 276
+                        index_of_solo_rank = summoner.queue_ranks.indexOf(temp);
 
-                displaySummonerRank.setText(summonerRank.toString());
+                        //Create the proper string for display
+                        String summonerSoloRank = temp.queue_type + ": " +
+                                temp.tier + " " + temp.rank + "\n";
+                        displaySummonerSoloRank.setText(summonerSoloRank);
+
+                    } else if (temp.queue_type.contains("FLEX") && displaySummonerFlexRank != null) {
+                        //get index of flex rank for later us in getting ranked icon @ line 287
+                        index_of_flex_rank = summoner.queue_ranks.indexOf(temp);
+
+                        //Create the proper string for display
+                        String summonerFlexRank = temp.queue_type + ": " +
+                                temp.tier + " " + temp.rank + "\n";
+                        displaySummonerFlexRank.setText(summonerFlexRank);
+
+                    }
+                }
+            }
+
+            //Reset TextView's if summoner rank does not exist
+            if (index_of_flex_rank < 0 && displaySummonerFlexRank != null) {
+                displaySummonerFlexRank.setText(" ");
+            }
+            if (index_of_solo_rank < 0 && displaySummonerSoloRank != null) {
+                displaySummonerSoloRank.setText(" ");
             }
 
             //summonerIcon ImageView
             if (summonerIcon != null) {
                 summonerIcon.setBackgroundResource(getProfileIDFilePath(summoner));
+            }
+
+            System.out.println("Index_of_solo_rank: " + index_of_solo_rank + "\n");
+            //Solo Rank Icon ImageView
+            if (soloDuoRankIcon != null && index_of_solo_rank >= 0) {
+                System.out.println("Index_of_solo_rank > 0");
+                soloDuoRankIcon.setBackgroundResource(getRankIconResourceID(
+                        summoner.queue_ranks.get(index_of_solo_rank).tier));
+            }
+            else {
+                if (soloDuoRankIcon != null) {
+                    soloDuoRankIcon.setBackgroundResource(R.color.white);
+                }
+            }
+
+            //Flex Rank Icon ImageView
+            if (flexRankIcon != null && index_of_flex_rank >= 0) {
+                flexRankIcon.setBackgroundResource(getRankIconResourceID(
+                        summoner.queue_ranks.get(index_of_flex_rank).tier));
+            }
+            else {
+                if (flexRankIcon != null) {
+                    flexRankIcon.setBackgroundResource(R.color.white);
+                }
             }
 
             displayLiveGameInfo(summoner);
@@ -248,8 +305,8 @@ public class MatchInfo extends AppCompatActivity {
             if (displaySummonerName != null) {
                 displaySummonerName.setText(R.string.summoner_name_not_found);
             }
-            if (displaySummonerRank != null) {
-                displaySummonerRank.setText(R.string.summoner_rank_not_found);
+            if (displaySummonerSoloRank != null) {
+                displaySummonerSoloRank.setText(R.string.summoner_rank_not_found);
             }
 
         }
@@ -416,88 +473,41 @@ public class MatchInfo extends AppCompatActivity {
             //Begin iterating through all the LiveGameParticipants to display
             //appropriate information
             boolean summonerFoundT1 = false;
-            FillView which_view = FillView.MID_LANE_1;
+            FillView which_view = FillView.TOP_1;
             for (LiveGameParticipant participant : summoner.current_match._participants) {
-                if (participant._summoner_name.equals(summoner.getSummonerName())) {
-                    if (participant._team_ID == 100) {
 
-                        //Display Summoner name
+                switch (which_view) {
+
+                    case TOP_1:
+
                         if (team1TopLaneSummonerName != null) {
-                            team1TopLaneSummonerName.setText(summoner.getSummonerName());
+                            team1TopLaneSummonerName.setText(participant._summoner_name);
                         }
-
-                        //Display Summoner rank
+                        if (team1TopRankIcon != null) {
+                            int resource_id = getRankIconResourceID(participant);
+                            if (resource_id >= 0) {
+                                team1TopRankIcon.setBackgroundResource(resource_id);
+                            }
+                        }
                         if (team1TopLaneSummonerRank != null) {
                             StringBuilder rank_string = new StringBuilder();
-                            for (int i = 0; i < summoner.queue_ranks.size(); i++) {
-                                if (summoner.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                                    rank_string.append(summoner.queue_ranks.get(i).tier).append(
-                                            ": ").append(summoner.queue_ranks.get(i).rank);
+
+                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
+                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
+                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
+                                            ": ").append(participant.queue_ranks.get(i).rank);
                                 }
 
                                 team1TopLaneSummonerRank.setText(rank_string.toString());
                             }
                         }
-
-                        //Display Summoner Rank Icon
-                        if (team1TopRankIcon != null) {
-                            int resource_id = getRankIconFilePath(summoner);
-                            if (resource_id >= 0) {
-                                team1TopRankIcon.setBackgroundResource(resource_id);
-                            }
-                        }
-
-                        //Display Summoner in-game Champion
                         if (team1TopLaneChamp != null) {
-                            int resource_id = getChampionIDFilePath(participant, champions);
-                            if (resource_id > 0) {
-                                team1TopLaneChamp.setBackgroundResource(resource_id);
-                            }
+                            team1TopLaneChamp.setBackgroundResource(getChampionIDFilePath(
+                                    participant, champions));
                         }
 
-                        System.out.println("Summoner found in Team 1");
-                        summonerFoundT1 = true;
-                        continue;
-                    }
-                    else {
-                        System.out.println("Summoner found in Team 2");
-                        //Display Summoner name
-                        if (team2TopLaneSummonerName != null) {
-                            team2TopLaneSummonerName.setText(summoner.getSummonerName());
-                        }
-
-                        //Display Summoner rank
-                        if (team2TopLaneSummonerRank != null) {
-                            StringBuilder rank_string = new StringBuilder();
-                            for (int i = 0; i < summoner.queue_ranks.size(); i++) {
-                                if (summoner.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                                    rank_string.append(summoner.queue_ranks.get(i).tier).append(
-                                            ": ").append(summoner.queue_ranks.get(i).rank);
-                                }
-
-                                team2TopLaneSummonerRank.setText(rank_string.toString());
-                            }
-                        }
-
-                        //Display Summoner Rank Icon
-                        if (team2TopRankIcon != null) {
-                            int resource_id = getRankIconFilePath(summoner);
-                            if (resource_id >= 0) {
-                                team2TopRankIcon.setBackgroundResource(resource_id);
-                            }
-                        }
-
-                        //Display Summoner in-game Champion
-                        if (team2TopLaneChamp != null) {
-                            int resource_id = getChampionIDFilePath(participant, champions);
-                            if (resource_id > 0) {
-                                team2TopLaneChamp.setBackgroundResource(resource_id);
-                            }
-                        }
-                        continue;
-                    }
-                }
-                switch (which_view) {
+                        which_view = FillView.MID_LANE_1;
+                        break;
 
                     case MID_LANE_1:
                         if (team1MidLaneSummonerName != null) {
@@ -520,7 +530,7 @@ public class MatchInfo extends AppCompatActivity {
                                     participant, champions));
                         }
                         if (team1MidRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team1MidRankIcon.setBackgroundResource(resource_id);
                             }
@@ -534,7 +544,7 @@ public class MatchInfo extends AppCompatActivity {
                                     participant._summoner_name);
                         }
                         if (team1JungleRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team1JungleRankIcon.setBackgroundResource(resource_id);
                             }
@@ -564,7 +574,7 @@ public class MatchInfo extends AppCompatActivity {
                             team1ADCSummonerName.setText(participant._summoner_name);
                         }
                         if (team1ADCRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team1ADCRankIcon.setBackgroundResource(resource_id);
                             }
@@ -594,7 +604,7 @@ public class MatchInfo extends AppCompatActivity {
                             team1SupportSummonerName.setText(participant._summoner_name);
                         }
                         if (team1SupportRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team1SupportRankIcon.setBackgroundResource(resource_id);
                             }
@@ -616,47 +626,7 @@ public class MatchInfo extends AppCompatActivity {
                                     participant, champions));
                         }
 
-                        if (summonerFoundT1) {
-                            which_view = FillView.TOP_2;
-                        } else {
-                            which_view = FillView.TOP_1;
-                        }
-                        break;
-
-                    case TOP_1:
-
-                        if (team1TopLaneSummonerName != null) {
-                            team1TopLaneSummonerName.setText(participant._summoner_name);
-                        }
-                        if (team1TopRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
-                            if (resource_id >= 0) {
-                                team1TopRankIcon.setBackgroundResource(resource_id);
-                            }
-                        }
-                        if (team1TopLaneSummonerRank != null) {
-                            StringBuilder rank_string = new StringBuilder();
-
-                            for (int i = 0; i < participant.queue_ranks.size(); i++) {
-                                if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                                    rank_string.append(participant.queue_ranks.get(i).tier).append(
-                                            ": ").append(participant.queue_ranks.get(i).rank);
-                                }
-
-                                team1TopLaneSummonerRank.setText(rank_string.toString());
-                            }
-                        }
-                        if (team1TopLaneChamp != null) {
-                            team1TopLaneChamp.setBackgroundResource(getChampionIDFilePath(
-                                    participant, champions));
-                        }
-
-                        if (participant._summoner_name.equals(summoner.getSummonerName())) {
-                            which_view = FillView.TOP_2;
-                        }
-                        else {
-                            which_view = FillView.MID_LANE_2;
-                        }
+                        which_view = FillView.TOP_2;
                         break;
 
                     case TOP_2:
@@ -664,7 +634,7 @@ public class MatchInfo extends AppCompatActivity {
                             team2TopLaneSummonerName.setText(participant._summoner_name);
                         }
                         if (team2TopRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team2TopRankIcon.setBackgroundResource(resource_id);
                             }
@@ -695,7 +665,7 @@ public class MatchInfo extends AppCompatActivity {
                             team2MidLaneSummonerName.setText(participant._summoner_name);
                         }
                         if (team2MidRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team2MidRankIcon.setBackgroundResource(resource_id);
                             }
@@ -726,7 +696,7 @@ public class MatchInfo extends AppCompatActivity {
                             team2JungleSummonerName.setText(participant._summoner_name);
                         }
                         if (team2JungleRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team2JungleRankIcon.setBackgroundResource(resource_id);
                             }
@@ -757,7 +727,7 @@ public class MatchInfo extends AppCompatActivity {
                             team2ADCSummonerName.setText(participant._summoner_name);
                         }
                         if (team2ADCRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team2ADCRankIcon.setBackgroundResource(resource_id);
                             }
@@ -788,7 +758,7 @@ public class MatchInfo extends AppCompatActivity {
                             team2SupportSummonerName.setText(participant._summoner_name);
                         }
                         if (team2SupportRankIcon != null) {
-                            int resource_id = getRankIconFilePath(participant);
+                            int resource_id = getRankIconResourceID(participant);
                             if (resource_id >= 0) {
                                 team2SupportRankIcon.setBackgroundResource(resource_id);
                             }
@@ -809,7 +779,6 @@ public class MatchInfo extends AppCompatActivity {
                             team2SupportChamp.setBackgroundResource(getChampionIDFilePath(
                                     participant, champions));
                         }
-
                         break;
                 }
             }
@@ -827,23 +796,11 @@ public class MatchInfo extends AppCompatActivity {
                 "drawable", getPackageName());
     }
 
-    public int getRankIconFilePath(LiveGameParticipant participant) {
-        int index_of_solo_rank = -1;
-        for (int i = 0; i < participant.queue_ranks.size(); i++) {
-            if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {
-                index_of_solo_rank = i;
-                break;
-            }
-        }
-
-        if (index_of_solo_rank >= 0) {
-            return MatchInfo.this.getResources().getIdentifier(participant.queue_ranks.get(
-                    index_of_solo_rank).tier.toLowerCase(), "drawable", getPackageName());
-        }
-        return -1;
+    public int getRankIconResourceID(String rank) {
+        return MatchInfo.this.getResources().getIdentifier(
+                rank.toLowerCase(), "drawable", getPackageName());
     }
-
-    public int getRankIconFilePath(Summoner participant) {
+    public int getRankIconResourceID(LiveGameParticipant participant) {
         int index_of_solo_rank = -1;
         for (int i = 0; i < participant.queue_ranks.size(); i++) {
             if (participant.queue_ranks.get(i).queue_type.contains("SOLO")) {

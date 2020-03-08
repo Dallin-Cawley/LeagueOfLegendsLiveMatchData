@@ -122,21 +122,38 @@ public class Summoner implements Serializable{
         }
 
         //Replace the '_' with a white space
-        for (int i = 0; i < queue_ranks.size(); i++) {       //Gets to the right spot in the List of
-            StringBuilder rank_type = new StringBuilder();   // Rank Queue's
-            rank_type.append(queue_ranks.get(i).queue_type);
-            int index_of_underscore = rank_type.indexOf("_");
-
-            //Begin finding and replacing underscore
-            while (index_of_underscore >= 0) {
-                rank_type.deleteCharAt(index_of_underscore);
-                rank_type.insert(index_of_underscore, " ");
-                index_of_underscore = rank_type.indexOf("_");
-            }
-
-            queue_ranks.get(i).setQueueType(rank_type.toString());
-
+        for (int i = 0; i < queue_ranks.size(); i++) {
+            queue_ranks.get(i).setQueueType(removeWhiteSpace(
+                    queue_ranks.get(i).queue_type));
         }
+    }
+
+    private String removeWhiteSpace(String word) {
+
+        StringBuilder removal = new StringBuilder();
+        removal.append(word);
+        int index_of_underscore = removal.indexOf("_");
+
+        //Begin finding and replacing underscore
+        while (index_of_underscore >= 0) {
+            removal.deleteCharAt(index_of_underscore);
+            removal.insert(index_of_underscore, " ");
+            index_of_underscore = removal.indexOf("_");
+        }
+
+        return removal.toString();
+    }
+
+    private void addQueueRankedList(List<RankedInfo> queue_ranks) {
+        for (RankedInfo type : queue_ranks) {
+            type.setQueueType(removeWhiteSpace(type.queue_type));
+        }
+
+        this.queue_ranks.addAll(queue_ranks);
+    }
+
+    public void addRankedInfo(LiveGameParticipant participant) {
+        addQueueRankedList(participant.queue_ranks);
     }
 
     public void addLiveGame(Gson json_manip, String json_live_game_info) {

@@ -44,13 +44,37 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/green_block" />
 
+    <ImageView
+        android:id="@+id/ranked_solo_duo_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+
+        app:layout_constraintLeft_toRightOf="@+id/summoner_icon"
+        app:layout_constraintTop_toBottomOf="@id/summoner_lvl_display"/>
+
+    <ImageView
+        android:id="@+id/ranked_flex_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+
+        app:layout_constraintLeft_toRightOf="@+id/ranked_solo_duo_icon"
+        app:layout_constraintTop_toBottomOf="@id/summoner_lvl_display"
+ />
+
+
     <TextView
         style="@style/Summoner_name_display"
         android:id="@+id/summoner_name_display"
 
 
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         app:layout_constraintTop_toBottomOf="@+id/summoner_icon"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -67,27 +91,37 @@
 
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
         style="@style/Summoner_info_display_small"
-        android:id="@+id/summoner_rank_display"
+        android:id="@+id/summoner_rank_solo_duo_display"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        app:layout_constraintLeft_toLeftOf="@+id/ranked_solo_duo_icon"
+        app:layout_constraintTop_toBottomOf="@+id/ranked_solo_duo_icon"
+        />
 
-        app:layout_constraintLeft_toRightOf="@+id/summoner_icon"
-        app:layout_constraintTop_toBottomOf="@+id/summoner_lvl_display"
+    <TextView
+        style="@style/Summoner_info_display_small"
+        android:id="@+id/summoner_rank_flex_display"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintLeft_toLeftOf="@+id/ranked_flex_icon"
+        app:layout_constraintTop_toBottomOf="@+id/ranked_flex_icon"
         />
 
     <ScrollView
         android:id="@+id/live_game_scroll_container"
         android:layout_width="match_parent"
         android:layout_height="370dp"
+
+        android:layout_marginTop="40dp"
 
 
         app:layout_constraintBottom_toBottomOf="parent"

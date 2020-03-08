@@ -79,7 +79,15 @@ public class RiotAPIRunnable implements Runnable {
                     //Get's the ranked information of the searched summoner's live game participants
                     //if the searched summoner is in a game.
                     if (summoner_info.isInGame()) {
-                        riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants, summoner_info);
+                        riot_api.addLiveGameParticipantRankedInfo(summoner_info.current_match._participants);
+
+                            for (LiveGameParticipant participant : summoner_info.current_match._participants) {
+                                if (participant._summoner_name.equals(summoner_info.getSummonerName())) {
+                                    summoner_info.addRankedInfo(participant);
+                                    break;
+                                }
+                            }
+
                     } else {
                         String json_summoner_ranked_info = riot_api.currentRankBySummonerID(summoner_info.getSummonerID());
                         summoner_info.addRankedInfo(json_manip, json_summoner_ranked_info);
